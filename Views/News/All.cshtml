@@ -1,0 +1,43 @@
+﻿@model NewsListViewModel
+@{
+    string hasPreviousPage = Model.PageViewModel.HasPreviousPage ? "" : "disabled";
+    string hasNextPage = Model.PageViewModel.HasNextPage ? "" : "disabled";
+}
+
+<section class="blog-posts grid-system">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="all-blog-posts">
+                    <div class="row gy-5">
+                        @foreach (var news in Model.News)
+                        {
+                            @await Component.InvokeAsync("NewsCard", news)
+                        }
+                    </div>
+                </div>
+                <div class="d-grid gap-2 d-sm-flex justify-content-center btn-group btn-group-eq-size mt-5">
+                    <a asp-action="All"
+                       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+                       asp-route-category=@Model.Category
+                       asp-route-tag=@Model.Tag
+                       class="btn btn-outline-dark @hasPreviousPage">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        Назад
+                    </a>
+
+                    <a asp-action="All"
+                       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+                       asp-route-category=@Model.Category
+                       asp-route-tag=@Model.Tag
+                       class="btn btn-outline-dark @hasNextPage">
+                        Вперед
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </a>
+
+                </div>
+            </div>
+            @await Html.PartialAsync("_MenuPartial")
+        </div>
+    </div>
+</section>

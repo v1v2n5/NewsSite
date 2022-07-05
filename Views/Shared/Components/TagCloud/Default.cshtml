@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Tag>
+
+<div class="sidebar-item tags">
+    <div class="sidebar-heading">
+        <h2>Облако тегов</h2>
+    </div>
+    <div class="content">
+        <ul>
+        @foreach (var tag in Model){
+            <li><a asp-controller="News" asp-action="All" asp-route-tag=@tag.Name>@tag.Name</a></li>
+        }
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿@model News
+
+@{
+    string NickName = Model.Author?.NickName ?? "Author";
+}
+
+<div class="col-lg-12">
+    <div class="blog-post">
+        @if (!string.IsNullOrEmpty(Model.PreviewImage)) {
+        <div class="blog-thumb">
+            <img src="~/images/@Model.PreviewImage" alt="">
+        </div>
+        }
+        <div class="down-content">
+            <span>@Model.Category.Name</span>
+            <a asp-controller="News" asp-action="Post" asp-route-id="@Model.Id"><h4>@Model.Title</h4></a>
+            <ul class="post-info">
+                <li><a href="#">@NickName</a></li>
+                <li><a href="#">@Model.Time.ToString("D")</a></li>
+            </ul>
+            <div class="preview-content">
+                <p>@Model.PreviewContent</p>
+            </div>
+            <div class="post-options">
+                <div class="row">
+                    <div class="col-6">
+                        <post-tags elements="@Model.Tags"></post-tags>
+                    </div>
+                    <div class="col-6">
+                        <ul class="post-share">
+                            <li><i class="fa fa-share-alt"></i></li>
+                            <li><a href="#">Facebook</a>,</li>
+                            <li><a href="#">Twitter</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

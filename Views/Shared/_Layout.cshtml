@@ -1,0 +1,85 @@
+﻿@using NewsSite.Data
+@inject ApplicationDbContext DbContext
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>HomeCreditBank - @ViewData["Title"]</title>
+    <link rel="stylesheet" asp-href-include="~/css/templatemo-stand-blog.css" asp-append-version="true" />
+    <link rel="stylesheet" asp-href-include="~/lib/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" asp-href-include="~/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" asp-href-include="~/css/site.css" asp-append-version="true" />
+
+    <style>
+        .dropdown:hover .dropdown-menu {
+            display: block;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/static/icon.jpg" class="d-block w-100" asp-append-version=true/>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-between" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link">О банке</a>
+                            <ul class="dropdown-menu list-group-flush" aria-labelledby="dropdownNav">
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Privacy">Реквизиты</a></li>
+                                <li><a class="dropdown-item" asp-controller="ActivityDirections" asp-action="Index">Направления деятельности</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="History">История</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link">Категории</a>
+                            <ul class="dropdown-menu list-group-flush">
+                            @foreach(var category in DbContext.Categories){
+                                <li><a class="dropdown-item" asp-controller="News" asp-action="All" asp-route-category="@category.Name">@category.Name</a></li>
+                            }
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="nav-link" asp-area="" asp-controller="Contact" asp-action="Index">Обратная связь</a>
+                        </li>
+                    </ul>
+
+                    <partial name="_LoginPartial" />
+
+                </div>
+
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container-lg">
+            @* @await Html.PartialAsync("Breadcrumbs") *@
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - HomeCreditBank
+        </div>
+    </footer>
+
+
+    <script asp-src-include="~/lib/jquery/dist/jquery.min.js"></script>
+    <script asp-src-include="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,44 @@
+﻿@model DetailNewsViewModel
+@{
+    ViewData["Title"] = "List";
+}
+
+<div class="row">
+    <div class="col-2 m-2">
+        @await Component.InvokeAsync("CategoryMenu")
+    </div>
+    <div class="col">
+        <div class="shadow-sm border p-3 m-2">
+            <h1 class="text-center">
+                @Html.DisplayFor(model => model.CurrentNews.Title)
+            </h1>
+            <h2 class="text-center">
+                @if (!string.IsNullOrEmpty(Model.CurrentNews.Author?.UserName))
+                {
+                    @Html.DisplayFor(model => Model.CurrentNews.Author.UserName);
+                }
+                else
+                {
+                    @Html.Raw("Автор статьи")
+                }
+
+            </h2>
+            <h3 class="text-center">
+                @Model.CurrentNews.Time.ToString("D")
+            </h3>
+            <div >
+                @Html.Raw(Model.CurrentNews.Content)
+            </div>
+        </div>
+        <div class="m-2">Еще: </div>
+        <div class="m-2">
+            <div class="row g-2 row-cols-4">
+                @foreach(var card in Model.RelatedNews)
+                {
+                    @await Component.InvokeAsync("NewsCard", card.Id)
+                }
+
+            </div>    
+        </div>
+    </div>
+</div>

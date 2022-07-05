@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ActivityDirections>
+
+<section class="blog-posts grid-system">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="all-blog-posts">
+                    <div class="row">
+                        @*В виде карточек (потом переделать во что то красивое) *@
+                        @foreach (var obj in Model)
+                        {
+                            <div class="col-lg-6">
+                                <div class="blog-post">
+                                    @if (!string.IsNullOrEmpty(obj.PreviewImage))
+                                    {
+                                        <div class="blog-thumb">
+                                            <img src="~/images/@obj.PreviewImage" alt="">
+                                        </div>
+                                    }
+                                    <div class="down-content">
+                                        <a asp-controller="ActivityDirections" asp-action="Post" asp-route-id="@obj.Id"><h4>@obj.Title</h4></a>
+                                        <p>@obj.PreviewContent</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

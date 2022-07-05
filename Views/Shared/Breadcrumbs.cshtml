@@ -1,0 +1,7 @@
+﻿@using NewsSite.Services
+@inject BreadcrumbService BreadcrumbService
+
+@foreach(var breadcrumb in BreadcrumbService.GetBreadcrumbs())
+{
+    <a asp-area="@breadcrumb.Area" asp-controller="@breadcrumb.Controller" asp-action="@breadcrumb.Action" asp-route-id="@breadcrumb.Id">@breadcrumb.Title</a>
+}

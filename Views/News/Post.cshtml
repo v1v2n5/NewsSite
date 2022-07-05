@@ -1,0 +1,95 @@
+﻿@model News
+@inject SignInManager<User> SignInManager
+@{
+    string NickName = Model.Author?.NickName ?? "Author";
+}
+<section class="blog-posts grid-system">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="all-blog-posts">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="blog-post">
+                                @if (!string.IsNullOrEmpty(Model.PreviewImage))
+                                {
+                                    <div class="blog-thumb">
+                                        <img src="~/images/@Model.PreviewImage" alt="">
+                                    </div>
+                                }
+                                <div class="down-content">
+                                    <span>@Model.Category.Name</span>
+                                    <a asp-controller="News" asp-action="Post" asp-route-id="@Model.Id"><h4>@Model.Title</h4></a>
+                                    <ul class="post-info">
+                                        <li><a href="#">@NickName</a></li>
+                                        <li><a href="#">@Model.Time.ToString("D")</a></li>
+                                    </ul>
+                                    
+                                    <div class="post-content">@Html.Raw(Model.Content)</div>
+                                    <div class="post-options">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <post-tags elements="@Model.Tags"></post-tags>
+                                            </div>
+                                            <div class="col-6">
+                                                <ul class="post-share">
+                                                    <li><i class="fa fa-share-alt"></i></li>
+                                                    <li><a href="#">Facebook</a>,</li>
+                                                    <li><a href="#">Twitter</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-12">
+                            <div class="sidebar-item comments">
+                                <div class="sidebar-heading">
+                                    <h2>Комментарии</h2>
+                                </div>
+                                <div class="content">
+                                    <ul class="vstack">
+                                        @foreach(var comment in Model.Comments){
+                                        <li>
+                                            <div>
+                                                <h4>@comment.User.NickName.Trim()<span>@comment.Time.ToString("g")</span></h4>
+                                                <p>@comment.Content.Trim()</p>
+                                            </div>
+                                        </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <div class="col-lg-12">
+                                <div class="sidebar-item submit-comment">
+                                    <div class="sidebar-heading">
+                                        <h2>Оставьте комментарий</h2>
+                                    </div>
+                                    <div class="content">
+                                        <form asp-controller="News" asp-action="Comment" asp-route-NewsId="@Model.Id" method="post">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <textarea name="Content" rows="6" placeholder="Ваш комментарий" required></textarea>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <button type="submit" class="main-button">Submit</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            @await Html.PartialAsync("_MenuPartial")
+        </div>
+    </div>
+</section>

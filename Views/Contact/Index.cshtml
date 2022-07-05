@@ -1,0 +1,73 @@
+﻿@model Contact
+<section class="contact-us">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="down-contact">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="sidebar-item contact-form">
+                                <div class="sidebar-heading">
+                                    <h2>Оставить обращение</h2>
+                                </div>
+                                <div class="content">
+                                    <form asp-controller="Contact" asp-action="Message" method="post">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12">
+                                                <input asp-for="Name" type="text" placeholder="Ваше ФИО" required>
+                                                <span asp-validation-for="Name" class="text-danger"></span>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <input asp-for="Email" placeholder="Ваш email" required />
+                                                <span asp-validation-for="Email" class="text-danger"></span>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12">
+                                                <input asp-for="Subject" placeholder="Тема">
+                                                <span asp-validation-for="Subject" class="text-danger"></span>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <textarea asp-for="Message" placeholder="Ваше сообщение" required></textarea>
+                                                <span asp-validation-for="Message" class="text-danger"></span>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <button type="submit" class="main-button">Отправить обращение</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="sidebar-item contact-information">
+                                <div class="sidebar-heading">
+                                    <h2>Контактная информация</h2>
+                                </div>
+                                <div class="content">
+                                    <ul>
+                                        <li>
+                                            <h5>+7 (495) 785-82-22</h5>
+                                            <span>Телефон</span>
+                                        </li>
+                                        <li>
+                                            <h5>info@company.com</h5>
+                                            <span>Адрес электронной почты</span>
+                                        </li>
+                                        <li>
+                                            <h5>
+                                                г. Москва, ул. Правды, д. 8, корпус 1
+                                            </h5>
+                                            <span>Адрес</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>

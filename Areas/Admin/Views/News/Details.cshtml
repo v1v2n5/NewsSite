@@ -1,0 +1,44 @@
+﻿@model NewsSite.Models.News
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="shadow-sm border p-3 m-2">
+    @if(!string.IsNullOrEmpty(Model.PreviewImage)){
+    <img src="~/images/@Model.PreviewImage"      
+                         asp-append-version="true" class="img-fluid" />
+    }
+    <h1 class="text-center">
+        @Html.DisplayFor(model => model.Title)
+    </h1>
+    <h2 class="text-center">
+        @if (!string.IsNullOrEmpty(Model.Author?.UserName))
+        {
+            @Html.DisplayFor(model => model.Author.UserName);
+        }
+        else
+        {
+            @Html.Raw("Автор статьи")
+        }
+
+    </h2>
+    <h3 class="text-center">
+        @Model.Time.ToString("D")
+    </h3>
+    <div>
+        Теги: @string.Join(',', Model.Tags.Select(x => x.Tag.Name))
+    </div>
+    <div>
+        Категория: @Model.Category.Name
+    </div>
+    <div >
+        @Html.Raw(Model.Content)
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,20 @@
+﻿@model IEnumerable<News>
+
+<div class="sidebar-item recent-posts">
+    <div class="sidebar-heading">
+        <h2>Последние новости</h2>
+    </div>
+    <div class="content">
+        <ul>
+            @foreach (var news in Model)
+            {
+                <li>
+                    <a asp-controller="News" asp-action="Post" asp-route-id="@news.Id">
+                        <h5>@news.Title</h5>
+                        <span>@news.Time.ToString("D")</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

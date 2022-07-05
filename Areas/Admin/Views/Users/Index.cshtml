@@ -1,0 +1,44 @@
+﻿@model IEnumerable<NewsSite.Models.User>
+@{
+    ViewData["Title"] = "Список пользователей";
+}
+
+<h1>Пользователи</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NickName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(Model => user.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(Model => user.NickName)
+                </td>
+                <td>
+                    <form asp-action="Delete" asp-route-id="@user.Id" method="post">
+                        <a asp-action="Edit" asp-route-id="@user.Id">Edit</a>
+                        <button type="submit" class="link">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
